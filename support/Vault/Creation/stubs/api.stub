@@ -1,0 +1,38 @@
+<?php
+
+namespace NameSpace;
+
+use ServiceUse;
+
+class ClassName
+{
+    protected ServiceClass $service;
+
+    public function __construct() {
+        $this->service = new ServiceClass();
+    }
+    public function index()
+    {
+        // GET /users
+    }
+
+    public function show($id)
+    {
+        // GET /users/{id}
+    }
+
+    public function store()
+    {
+        // POST /users
+    }
+
+    public function update($id)
+    {
+        // PUT/PATCH /users/{id}
+    }
+
+    public function destroy($id)
+    {
+        // DELETE /users/{id}
+    }
+}
