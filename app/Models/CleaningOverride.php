@@ -7,7 +7,7 @@ class CleaningOverride extends Model {
 
     protected string $table = 'cleaning_overrides';
 
-    protected array $fillable = [
+    protected static $fillable = [
         'house',
         'room',
         'tenant',

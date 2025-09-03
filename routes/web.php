@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Controllers\ScheduleController;
 use App\Middleware\Authenticate;
 use Support\Vault\Routing\Route;
 
@@ -28,9 +29,17 @@ use Support\Vault\Routing\Route;
  * This is the central place for managing how URLs map to your application's functionality.
  */
 
+ Route::get('/schedule', [ScheduleController::class, 'index']);
+ Route::get('/schedule/tenants', [ScheduleController::class, 'addTenant']);
+ Route::get('/schedule/tenants/{house}', [ScheduleController::class, 'addTenant']);
+ Route::get('/schedule/{house}/make-plan', [ScheduleController::class, 'makePlan']);
+ Route::get('/schedule/{house}/show-plan', [ScheduleController::class, 'showSchedule']);
 
 Route::middleware([Authenticate::class], function () {
-   Route::get('/', function() {
-      return view('dashboard');
-   });
+   Route::get('/', [ScheduleController::class, 'viewDashboard']);
+   Route::get('/create-house', [ScheduleController::class, 'viewCreateHouse']);
+   Route::get('/add-rooms-to-houses', [ScheduleController::class, 'viewCreateRooms']);
+   Route::get('/{house}/make-plan', [ScheduleController::class, 'viewMakePlan']);
+   
 });
+ Route::get('/plan/{slug}', [ScheduleController::class, 'scheduleBySlug']);

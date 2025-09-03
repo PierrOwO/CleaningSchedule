@@ -1,4 +1,8 @@
 {
+  "_index-Dq7h7Pqt.js": {
+    "file": "assets/index-Dq7h7Pqt.js",
+    "name": "index"
+  },
   "_jquery-DkvTqftU.js": {
     "file": "assets/jquery-DkvTqftU.js",
     "name": "jquery"
@@ -16,12 +20,22 @@
     ]
   },
   "js/auth.js": {
-    "file": "assets/auth-CIM25IUF.js",
+    "file": "assets/auth-BK-XMOsg.js",
     "name": "auth",
     "src": "js/auth.js",
     "isEntry": true,
     "imports": [
-      "_jquery-DkvTqftU.js"
+      "_jquery-DkvTqftU.js",
+      "_index-Dq7h7Pqt.js"
+    ]
+  },
+  "js/schedule.js": {
+    "file": "assets/schedule-DpRyPcUg.js",
+    "name": "schedule",
+    "src": "js/schedule.js",
+    "isEntry": true,
+    "imports": [
+      "_index-Dq7h7Pqt.js"
     ]
   }
 }

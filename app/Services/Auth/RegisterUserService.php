@@ -15,20 +15,19 @@ class RegisterUserService
         $user->last_name = $data['last_name'];
         $user->name = $data['name'];
         $user->email = $data['email'];
+        $user->role = 'tenant';
         $user->password = Hash::make($data['password']);
         $user->save();
         return $user;
     }
     public function existsEmail(string $email): bool
     {
-        Log::info('email: ' . $email);
-        return User::where(['email' => $email])
+        return User::where('email', $email)
             ->first() !== null;
     }
     public function existsName(string $name): bool
     {
-        Log::info('email: ' . $name);
-        return User::where(['name' => $name])
+        return User::where('BINARY name', $name)
             ->first() !== null;
     }
 }

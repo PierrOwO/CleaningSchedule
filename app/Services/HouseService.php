@@ -8,9 +8,20 @@ class HouseService
 {
     public function new(string $name, string $address): array
     {   
+        while (true)
+        {
+            $slug = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ", 10)), 0, 10);
+            $codeExists = House::where('BINARY slug', $slug)->first();
+            if(!$codeExists)
+            {
+                break;
+            }
+        }
         $house = new House;
         $house->name = $name;
         $house->address = $address;
+        $house->slug = $slug;
+        $house->founder = auth()->user()->unique_id;
         $result = $house->save();
         if (!$result) {
             return [

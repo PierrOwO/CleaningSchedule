@@ -13,6 +13,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('unique_id');
+            $table->string('founder');
+            $table->string('slug', 10);
             $table->timestamps();
         });
 
@@ -21,6 +23,26 @@ return new class extends Migration
             $table->string('house'); 
             $table->integer('number');
             $table->string('unique_id');
+            $table->enum('type', [
+                'room',
+                'bedroom',
+                'kitchen',
+                'living_room',
+                'dining_room',
+                'bathroom',
+                'toilet',
+                'office',
+                'garage',
+                'attic',
+                'basement',
+                'laundry',
+                'pantry',
+                'hallway',
+                'closet',
+                'porch',
+                'balcony',
+                'terrace'
+            ])->default('room');
             $table->timestamps();
         });
 
@@ -42,13 +64,31 @@ return new class extends Migration
             $table->integer('year');
             $table->timestamps();
         });
+
+        Schema::create('reports', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('status');
+            $table->timestamps();
+        });
+
+        Schema::create('cleaning_queue', function (Blueprint $table) {
+            $table->id();
+            $table->string('house');
+            $table->enum('type', ['whole', 'partial']);
+            $table->json('rotation');
+            $table->dateTime('start_date');
+            $table->timestamps();
+        });
     }
 
     public function down(): void
     {
         Schema::dropIfExists('cleaning_overrides');
+        Schema::dropIfExists('reports');
         Schema::dropIfExists('tenants');
         Schema::dropIfExists('rooms');
         Schema::dropIfExists('houses');
+        Schema::dropIfExists('cleaning_queue');
     }
 };

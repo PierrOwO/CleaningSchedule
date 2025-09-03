@@ -7,10 +7,12 @@ class House extends Model {
 
     protected static $table = 'houses';
 
-    protected array $fillable = [
+    protected static $fillable = [
         'name',
         'address',
         'unique_id',
+        'founder',
+        'slug',
     ];
 
     public function __construct()

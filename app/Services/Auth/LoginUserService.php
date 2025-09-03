@@ -16,7 +16,7 @@ class LoginUserService
             ];
         }
 
-        $user = User::where('name', $name)->first();
+        $user = User::where('BINARY name', $name)->first();
 
         if (!$user || !Hash::check($password, $user->password)) {
             LoginThrottle::hit($name);

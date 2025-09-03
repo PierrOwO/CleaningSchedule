@@ -57,15 +57,13 @@ class HouseController
         return response()->json([
             'success' => true,
             'message' => 'House created successfully',
-            'house' => $result['house']
         ], 201);
     }
 
-    public function update(Request $request)
+    public function update($id)
     {
-        $id = $request->input('id');
-        $name = $request->input('name');
-        $address = $request->input('address');
+        $name = request()->input('name');
+        $address = request()->input('address');
 
         if (empty($name) || empty($address)) {
             return response()->json([
@@ -89,10 +87,8 @@ class HouseController
         ], 201);
     }
 
-    public function destroy(Request $request)
-    {
-        $id = $request->input('id');
-        
+    public function destroy($id)
+    {        
         $result = $this->service->check($id);
         if(!$result['success']){
             return response()->json([

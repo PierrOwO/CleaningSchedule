@@ -11,6 +11,8 @@ export default defineConfig({
       input: [
         'resources/js/app.js',
         'resources/js/auth.js',
+        'resources/js/schedule.js',
+        'resources/js/modal.js',
       ],
     },
   },

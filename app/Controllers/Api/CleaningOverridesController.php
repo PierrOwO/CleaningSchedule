@@ -63,14 +63,13 @@ class CleaningOverridesController
         ], 201);
     }
 
-    public function update(Request $request)
+    public function update($id)
     {
-        $id = $request->input('id');
-        $house = $request->input('house');
-        $room = $request->input('room');
-        $tenat = $request->input('tenat');
-        $week = $request->input('week');
-        $year = $request->input('year');
+        $house = request()->input('house');
+        $room = request()->input('room');
+        $tenat = request()->input('tenat');
+        $week = request()->input('week');
+        $year = request()->input('year');
 
         if (empty($id) || empty($house) || empty($room) || empty($tenat) || empty($week) || empty($year)) {
             return response()->json([
@@ -94,10 +93,8 @@ class CleaningOverridesController
         ], 201);
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $id = $request->input('id');
-        
         $result = $this->service->check($id);
         if(!$result['success']){
             return response()->json([

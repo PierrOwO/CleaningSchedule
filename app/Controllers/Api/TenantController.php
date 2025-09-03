@@ -59,12 +59,11 @@ class TenantController
         ], 201);
     }
 
-    public function update(Request $request)
+    public function update($id)
     {
-        $id = $request->input('id');
-        $room = $request->input('room');
-        $user = $request->input('user');
-        $status = $request->input('status');
+        $room = request()->input('room');
+        $user = request()->input('user');
+        $status = request()->input('status');
 
         if (empty($room) || empty($user) || empty($status)) {
             return response()->json([
@@ -88,10 +87,8 @@ class TenantController
         ], 201);
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $id = $request->input('id');
-        
         $result = $this->service->check($id);
         if(!$result['success']){
             return response()->json([

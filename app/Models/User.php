@@ -14,6 +14,7 @@ class User extends Model {
         'email',
         'password',
         'unique_id',
+        'role',
     ];
     public function __construct()
     {

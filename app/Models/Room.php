@@ -4,11 +4,12 @@ use Support\Vault\Sanctum\Model;
 
 class Room extends Model {
 
-    protected string $table = 'rooms';
+    protected static $table = 'rooms';
 
-    protected array $fillable = [
+    protected static $fillable = [
         'house',
         'number',
+        'type',
         'unique_id',
     ];
 

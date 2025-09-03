@@ -14,7 +14,7 @@ class ReportController
     }
     public function index()
     {
-        // GET /users
+        return response()->json(['message' => 'index of reports']);
     }
 
     public function show($id)
@@ -59,11 +59,10 @@ class ReportController
         ], 201);
     }
 
-    public function update(Request $request)
+    public function update($id)
     {
-        $id = $request->input('id');
-        $name = $request->input('name');
-        $status = $request->input('status');
+        $name = request()->input('name');
+        $status = request()->input('status');
 
         if (empty($name) || empty($status)) {
             return response()->json([
@@ -87,10 +86,8 @@ class ReportController
         ], 201);
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $id = $request->input('id');
-        
         $result = $this->service->check($id);
         if(!$result['success']){
             return response()->json([

@@ -18,11 +18,12 @@ class RoomService
             'success' => true,
         ];
     }
-    public function new(string $room, int $number): array
+    public function new(string $house, int $number, string $type): array
     {   
         $room = new Room;
         $room->number = $number;
-        $room->Room = $room;
+        $room->house = $house;
+        $room->type = $type;
         $result = $room->save();
         if (!$result) {
             return [
@@ -33,6 +34,30 @@ class RoomService
         
         return [
             'success' => true,
+        ];
+    }
+    public function getBedroomsByHouse(string $id): array
+    {
+        $rooms = Room::where('house', $id)
+                    ->where('type', 'bedroom')
+                    ->get();
+        if (!$rooms) {
+            return [
+                'success' => false,
+                'message' => 'No data found',
+                'rooms' => [],
+            ];
+        }
+        $bedrooms = $rooms->map(fn($room) => [
+            'id' => $room->unique_id,
+            'number' => $room->number,
+            'name' => $room->name ?? 'Bedroom '.$room->number,
+        ]);
+    
+        return [
+            'success' => true,
+            'message' => 'Data found',
+            'rooms' => $bedrooms,
         ];
     }
     public function get(string $id): array
@@ -50,7 +75,7 @@ class RoomService
             'Room' => $room
         ];
     }
-    public function update(string $id, string $number, string $house)
+    public function update(string $id, string $number, string $house, string $type)
     {
         $room = Room::where('unique_id', $id)->first();
         if (!$room) {
@@ -62,6 +87,7 @@ class RoomService
 
         $room->number = $number;
         $room->house = $house;
+        $room->type = $type;
         $result = $room->save();
 
         if (!$result){

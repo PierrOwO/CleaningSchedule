@@ -4,9 +4,9 @@ use Support\Vault\Sanctum\Model;
 
 class Tenant extends Model {
 
-    protected string $table = 'tenants';
+    protected static $table = 'tenants';
 
-    protected array $fillable = [
+    protected static $fillable = [
         'room',
         'user',
         'status',

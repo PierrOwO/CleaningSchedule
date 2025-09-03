@@ -16,6 +16,20 @@ class RoomController
     {
         // GET /users
     }
+    public function getBedroomsByHouse($id)
+    {
+        $result = $this->service->getBedroomsByHouse($id);
+        if(!$result['success']) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No data found'
+            ], 404);
+        }
+        return response()->json([
+            'success' => true,
+            'rooms' => $result['rooms']
+        ]);
+    }
 
     public function show($id)
     {
@@ -34,46 +48,48 @@ class RoomController
 
     public function store(Request $request)
     {
-        $name = $request->input('name');
-        $address = $request->input('address');
+        $number = $request->input('number');
+        $house = $request->input('house');
+        $type = $request->input('type');
 
-        if (empty($name) || empty($address)) {
+
+        if (empty($number) || empty($house) || empty($type)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Name and address are required'
+                'message' => 'Room number and house are required'
             ], 422);
         }
 
-        $result = $this->service->new($name, $address);
+        $result = $this->service->new($house, $number, $type);
 
         if (!$result['success']) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to create house'
+                'message' => 'Failed to create room'
             ], 500);
         }
 
         return response()->json([
             'success' => true,
-            'message' => 'House created successfully',
-            'house' => $result['house']
+            'message' => 'Room created successfully',
         ], 201);
     }
 
-    public function update(Request $request)
+    public function update($id)
     {
-        $id = $request->input('id');
-        $name = $request->input('name');
-        $address = $request->input('address');
+        $number = request()->input('number');
+        $house = request()->input('house');
+        $type = request()->input('type');
 
-        if (empty($name) || empty($address)) {
+
+        if (empty($number) || empty($house) || empty($type)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Name and address are required'
+                'message' => 'Room number and house are required'
             ], 422);
         }
 
-        $result = $this->service->update($id, $name, $address);
+        $result = $this->service->update($id, $number, $house, $type);
 
         if (!$result['success']) {
             return response()->json([
@@ -88,10 +104,8 @@ class RoomController
         ], 201);
     }
 
-    public function destroy(Request $request)
-    {
-        $id = $request->input('id');
-        
+    public function destroy($id)
+    {        
         $result = $this->service->check($id);
         if(!$result['success']){
             return response()->json([
